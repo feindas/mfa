@@ -1,0 +1,13 @@
+# This file sets the system charcteristtics for Mfa_prog
+# It is in free format but the number of files must be held fixed
+# the first 4 parameters are commons to all systems
+#Grafted polymers: n_mon n_chain wall: [n_mon] [n_chain] [number of cells in x] [number of cells in y] [n_box_fftw] [n_safe_fftw] [num_rings] [ring_dist] [ring_radio] [rfijo(0|1)]
+    100      1                80               50                   100            10          2          30.0	       1.5           1
+# Ring 1:  [n_mon_d] [n_chain_d] [drop_cell_x] [drop_cell_y] [z_skin]
+    11      0      80     50    7.0
+# Ring 2:  [n_mon_e] [n_chain_e] [inter4?] 
+    11      0     1 
+# [A_w] [sigma_w]  [A_w4]  [sigma_w4] . Wall fluid interaction. Different for particle 4
+-2.0 1.0 -2.0  2.0
+# Volume force fx fy fz 
+0.00  0.0   0.0 
