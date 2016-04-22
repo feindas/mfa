@@ -17,8 +17,8 @@ flags = -fpp # -vec-report0    # -fpe0: stops prog after first fp exception
 #  sheldon: -axW
 #  core 2 duo -axT
 #flags+=  -O3 -i-static  -align all -ip  # optimization
-flags+=  -O3  -align all -ip -I/share/apps/fftw/fftw-3.3.4_intel10/include  # optimization
-cflags= -lfftw3 -lm -i-static -L/share/apps/fftw/fftw-3.3.4_intel10/lib 
+#flags+=  -O3  -align all -ip -I/share/apps/fftw/fftw-3.3.4_intel10/include  # optimization
+cflags= -lfftw3 -lm -L/share/apps/fftw/fftw-3.3.4_intel10/lib 
 #flags+=  -warn unused
 #
 flags+= -check bounds  -g #-traceback
@@ -77,7 +77,8 @@ OBJS = mfa_common.o \
       wall_time.o \
       bond_distance.o \
       bending.o \
-      orientation.o 
+      orientation.o \
+	  external_force.o
 
 #obsoleted       fluid_fluid_test.o  
 #obsoleted       corrector.o   

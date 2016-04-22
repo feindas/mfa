@@ -1,0 +1,14 @@
+[fft]Frec_de_corte:    0.36429
+[fft]Delta_de_frecuencia:    0.00714
+ [fft]n_box_fftw:           51
+ [fft]num_of_beads:          102
+[fft]max_x=Lx:   70.00000
+[fft]Ly:   90.00000
+ [fft]n_screen:          100
+[fft]delta_x:    1.37255
+ [fft]n_bad_screen:            0
+ [chain] n_beads_chain:          102
+ [ring] n_ring:            0
+ [ring] ring_distance:   0.000000000000000E+000
+ [ring] n_beads_ring1:           11
+ [ring] n_beads_ring2:           11

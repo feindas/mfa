@@ -192,6 +192,7 @@ use commons
         r0_unfold(2,n_mon*n_chain)=boundary(2)/2.0 
         r0_unfold(3,n_mon*n_chain)=boundary(3)/2.0 
 
+
 #endif /* fixed-end boundary conditions */
     
 
@@ -199,6 +200,7 @@ use commons
 
 ! Here should be Vcm==0 and Acm == 0 then the dynamic 
 ! of the CM is ok. (No needs fix_VCM or fix_CM)
+
 # endif
 
 # if WALL == 1 /*explicit wall*/
@@ -247,6 +249,15 @@ use commons
                         end if
                     end do
             end do
+#   if SYSTEM == 4 
+#       ifdef RUN_2D
+! Fix the plane in X-Z if running 2D        
+        r0(2,:) = boundary(2)/2.0
+        r0_unfold(2,:)=boundary(2)/2.0 
+        v(2,:) = 0.0
+#       endif  
+#   endif  
+
 #   if WALL == 1 
 !  ----  PBC conditions for wall atoms 
         do i_wall = 1,n_wall

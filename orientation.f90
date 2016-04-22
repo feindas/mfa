@@ -11,7 +11,7 @@ real(kind=8) ::r_prev(3),r_next(3),dot_pr=0,r_prev_2=0,r_next_2=0,cos_alpha,dir_
 select case (mode_or)
 
 case(0)  ! Init  variables 
-    k_or =k_bend!sets orientation stiffnes
+    k_or =k_bend    !sets orientation stiffness
     alpha_or=0
     print*,""
     print*," * Simulation with orientation stiffness"

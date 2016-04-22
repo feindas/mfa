@@ -208,17 +208,20 @@ else      ! ---- READ mfa_input
 
     read(10,*) k_spring_wall,c_dummy ; print *, "   k_spring_wall = ", k_spring_wall
 
-# ifdef BENDING        
-read(10,*) k_bend; print *,"bending constant = ", k_bend !bending elastic constant, set default to 0
-read(10,*) alpha_eq; print *,"equilibruim angle = ", alpha_eq  ! equilibrium bending angle set default to 0
-# endif
+#   ifdef BENDING        
+    read(10,*) k_bend; print '(/a,g13.6)',"  * Bending constant = ", k_bend !bending elastic constant, set default to 0
+    read(10,*) alpha_eq; print '(a,g13.6/)',"  * Equilibrium angle = ", alpha_eq  ! equilibrium bending angle set default to 0
+#   endif
+#   if EXT_FORCE == 1  
+    read(10,*) k_elastic  ;  print '(/a,g13.6/)', " External elastic field: Force constant =  ", k_elastic
+#   endif
   
-    read(10,*) !i_dummy
+!    read(10,*) !i_dummy
     read(10,*) !c_dummy
-    read(10,*) iseed ; print *,"iseed = ",iseed
+    read(10,*) iseed ; print *," iseed = ",iseed
     read(10,*) !c_dummy
-    read(10,*) k_chain ; print '(a,f12.7)',"  FENE: kchain = ",k_chain
-    read(10,*) r_chain ; print '(a,f12.7)',"  FENE: rchain = ",r_chain
+    read(10,*) k_chain ; print '(a,g13.6)',"  FENE: kchain = ",k_chain
+    read(10,*) r_chain ; print '(a,g13.6)',"  FENE: rchain = ",r_chain
     read(10,*)! c_dummy
     read(10,*)! c_dummy
     read(10,*)! c_dummy
@@ -296,10 +299,13 @@ end if
        end do
        write(20,201) k_spring_wall," spring const. to wall equil. sites"
        
-# ifdef BENDING        
-       write(20,201) k_bend," bending elastic constant"  !bending elastic constant, set default to 0
-       write(20,201) alpha_eq," bending equilibrium angle"  ! equilibriumbending angle set default to 0
-# endif
+#       ifdef BENDING        
+       write(20,201) k_bend," Bending elastic constant"  !bending elastic constant, set default to 0
+       write(20,201) alpha_eq," Bending equilibrium angle"  ! equilibriumbending angle set default to 0
+#       endif
+#       if EXT_FORCE == 1 
+       write(20,201) k_elastic," Force constant of the external elastic field"  
+#       endif
 
        write(20,210) !f_cut_off," cut-off flag (0) short (1) long range [OBSOLETE]"
        write(20,*)

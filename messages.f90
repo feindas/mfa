@@ -12,7 +12,7 @@ subroutine messages
 ! Symmetry of the problem: PBC in 3D or 2D
 
 #if SYMMETRY == 0 
-        print '(/a/)', "  *  SIMULATING: a system with PBC in X and Y coordinates (Walls in Z)" 
+        print '(/a/)', "  *  SIMULATING: a system with PBC in X and Y coordinates (Walls perp. to  Z)" 
 #elif SYMMETRY == 1
         print '(/a/)', "  *  SIMULATING: a system with PBC in X, Y and Z coordinates (BULK)" 
 
@@ -211,6 +211,15 @@ print '(/a/)',"  * Doing simulation with profiles calculation (slower) "
 
 #    endif
 #endif
+#   if CHAIN_BC == 2 
+            print '(/a/)',"  *  Fixed boundary condition in the extremes of the chain"
+
+#   endif
+#   ifdef RUN_2D
+            print '(/a)',"  *  WARNING: the program is compiled with RUN_2D."
+            print '(a/)',"     Running in 2D with fixed y positions for ALL the particles !!"
+
+#   endif
 
 
 end subroutine messages

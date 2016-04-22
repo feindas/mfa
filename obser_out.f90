@@ -304,6 +304,20 @@ inv_count_obs = 1./count_obs
 #   endif /*system=1: droplets*/
 
 #if SYSTEM == 4
+
+open(235, file="force_on_end_beads.dat",status="unknown")
+end_bead_force(:,:)=end_bead_force(:,:)/dble(i_time)
+end_bead_force2(:,:)=end_bead_force2(:,:)/dble(i_time)
+
+write(235,*) "# Fx_bid1   ","Fy_bid1   ","Fz_bid1   ","Fx_bidN   ","Fy_bidN   ","Fz_bidN   "
+write(235,*) end_bead_force(1,1),end_bead_force(2,1),end_bead_force(3,1),end_bead_force(1,2),end_bead_force(2,2),end_bead_force(3,2)
+
+write(235,*) "# (Fx_bid1)**2   ","(Fy_bid1)**2   " ,"(Fz_bid1)**2   ","(Fx_bidN)**2   ","(Fy_bidN)**2   ","(Fz_bidN)**2   "
+write(235,*) end_bead_force2(1,1),end_bead_force2(2,1),end_bead_force2(3,1),end_bead_force2(1,2),end_bead_force2(2,2),end_bead_force2(3,2)
+
+close(235)
+
+
     call chain_fftw(3) !saves the mean FTT coeff and power spectrum 
     call bond_distance(1)
     call ring_net_force(-1) ! close ring_force.dat

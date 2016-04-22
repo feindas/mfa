@@ -168,6 +168,9 @@ real (kind = 8) :: PIii,amp,peri,peri2, amp2
         r0(1,n_mon*n_chain)=boundary(1)-0.2*sigma(1,1)
         r0(2,n_mon*n_chain)=boundary(2)/2.0 
         r0(3,n_mon*n_chain)=boundary(3)/2.0 
+#ifdef      RUN_2D
+           r0(2,:)= boundary(2)/2.0 
+#endif
 
 end select
 end subroutine gen_chain

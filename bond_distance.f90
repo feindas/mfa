@@ -1,5 +1,5 @@
 subroutine bond_distance(mode)
-#include "control_simulation.h"
+#include 'control_simulation.h'
     use commons
 
  implicit none
@@ -52,7 +52,6 @@ end do
 case(2)
 !Observation
 
-!aca me esta faltando el error, ojo, necesito los valores medios también para poder calcular errores
 
 do j=1,n_mon-1
      bond_dist(j)=bond_dist(j)+sqrt( (r0(1,j+1) - r0(1,j))*(r0(1,j+1) - r0(1,j)) + (r0(2,j+1) - r0(2,j))*(r0(2,j+1) - r0(2,j)) + (r0(3,j+1) - r0(3,j))*(r0(3,j+1) - r0(3,j)) )
@@ -68,7 +67,7 @@ case(1)
 
     do j=1,n_mon-1
 !    error_bond_dist(j)=sqrt( (bond_dist2(j)/tot_time) - (bond_dist(j)/tot_time)*(bond_dist(j)/tot_time) ) / sqrt(tot_time_real)
-    write(35,*) j,bond_dist(j)/tot_time,bond_dist2(j)/tot_time
+    write(35,*) j, bond_dist(j)/(tot_time-n_relax), bond_dist2(j)/(tot_time-n_relax)
 !    write(36,*) j, error_bond_dist(j)    
 
     end do

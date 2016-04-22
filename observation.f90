@@ -497,6 +497,7 @@ end if ! mod(i_time-n_relax,5).eq.0
 #endif /* droplets */
 
 #if SYSTEM == 4
+
 call bond_distance(2)
 #endif
 

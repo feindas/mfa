@@ -305,6 +305,17 @@ allocate (  ff_list(0:n_neigh_fl+n_layer*n_wall,n_part) ) ! ,             &
         allocate ( q(n_mon_tot) ) 
 #endif
 
+
+#if SYSTEM == 4 
+
+allocate (end_bead_force(3,2))
+allocate (end_bead_force2(3,2))
+
+end_bead_force(:,:)=0.
+end_bead_force2(:,:)=0.
+#endif
+
+
 #if SYSTEM == 4 && RINGS != 0
 !RINGS FIXED CONDITION IN intra_molec   allocate ( pos_ini_rings( 3, (n_mon_d*n_chain_d+n_mon_e*n_chain_e ) ) )
    if( n_ring .ne. 0 ) then

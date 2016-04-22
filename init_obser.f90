@@ -418,11 +418,17 @@ print '(/a/)',"  *  Writing the very first generated configuration to conf0.xyz 
         call refold(0,n_mon,1,part_init_d) 
         call refold(1,n_mon,1,part_init_d) ! this line is for chain
 
-          vec_dummy(:) = vec_dummy(:) + mass(i_part)*r0_unfold(:,i_part)
-          r_dummy = r_dummy + mass(i_part)
-      end do
+        vec_dummy(:) = 0.0 
+        do i_part = 1 , n_mon*n_chain
+            vec_dummy(:) = vec_dummy(:) + mass(i_part)*r0_unfold(:,i_part)
+            r_dummy = r_dummy + mass(i_part)
+            vec_dummy(:) = vec_dummy(:) + mass(i_part)*r0_unfold(:,i_part)
+            r_dummy = r_dummy + mass(i_part)
+        end do
+
       vec_dummy(:) = vec_dummy(:)/r_dummy
       print '(a,3f16.5)', "[init_obser,STORE==0] S4 - Rcm (chain)=", vec_dummy(:) 
+
 #if RINGS == 1
         print *, " * Refolding for STORE = 0, now rings"
 ! Now refolding the rings 

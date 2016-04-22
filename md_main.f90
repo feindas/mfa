@@ -119,7 +119,9 @@
           call orientation(1) ! adds chain bending forces and bending energy for
                               !first and last monomers, with PBC in 2D
 #   endif
-
+#       if EXT_FORCE == 1 
+            call external_force(1)
+#       endif
 #endif
 
 
@@ -129,10 +131,10 @@
            call dipolar_correction()
 #         endif
 #   else if SYSTEM == 4
+! Claudio, Sept. 15            
+#   if RINGS == 1
            call ring_net_force(1) ! Acumulate force over rings
-          
-          
-#          if RINGS == 1
+
            call fix_force_CM(2) ! set zero force over rings
 #          endif
 #   endif
@@ -157,7 +159,8 @@
            if(i_time.gt.n_relax) then 
                call observation 
                if(mod(i_time,n_safe_fftw).eq.0) then
-                  call chain_fftw(2)
+!WARN                   
+!DEB test without                  call chain_fftw(2)
                end if
            end if
 !----  Make safety copies  to recover from crashes and write out of configurations

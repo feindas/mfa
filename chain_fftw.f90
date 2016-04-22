@@ -37,7 +37,7 @@ select case (mode)
 
 !****** end of initialization variables **** 
 
-    case(2) !****** start the FFT process ******
+    case(2) !****** the FFT process starts ******
     j_fftw = j_fftw + 1
 !    print *, "Times the FFT process is calculated:", j_fftw
     flag_bad_screen = .FALSE.
@@ -170,6 +170,15 @@ integer :: p
 !******************************************************************
             p = int(r0(1,i_part)/delta_x) + 1 ! calculate the box
             ! increment number of beads in  box p
+! Claudio: avoiding overflows. Algorithm must be  CHECKED  !!!!!
+            if (p<1) then
+                p=1
+                print *, "WARN: index out of bounds in chain_fft. p<1"
+            end if
+            if (p>n_mon) then 
+                p=n_mon
+                print *, "WARN: index out of bounds in chain_fft. p>n_mon"
+            end if
             cajitas_fftw(p) = cajitas_fftw(p) + 1 
             ! calculate total height  
             h_tot_fftw(p) = h_tot_fftw(p) + h_fftw(i_part)
@@ -206,8 +215,13 @@ integer :: p
                ! DOES NOT WORK                  flag_bad_screen = .TRUE.
                ! DOES NOT WORK              end if
             else
-               ! normalize height
-               h_tot_fftw(i_fftw) = h_tot_fftw(i_fftw)/cajitas_fftw(i_fftw)
+! normalize height
+! Claudio sept. 2015: if cajitas = 0, do not produce overflow. TEST and FIX 
+               if (cajitas_fftw(i_fftw) > 0 ) then
+                   h_tot_fftw(i_fftw) = h_tot_fftw(i_fftw)/cajitas_fftw(i_fftw)
+               else
+                   print *,'  WARN: 0 particle found in FFT bin! Check Var cajitas_fftw'
+               endif
 
        end if
 
@@ -255,6 +269,9 @@ subroutine save_mean_difrac()
        PIii=4.D0*DATAN(1.D0)
 
 !            q_fftw =real(i_part-1)*((2.*PIii)/2.)* (1./boundary(1))*boundary(1)/(1.*n_mon) 
+
+! x axis -->> q_fftw
+
             q_fftw =real(i_part-1)*((2.*PIii)/2.)* 1./n_mon
             lambda_fftw = (2*PIii)/q_fftw
             ! the true mean intensities, correcting the number of good screen,

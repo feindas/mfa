@@ -114,7 +114,6 @@ module commons
 ! force on head brushes to calculate shear forces
       real (kind=8), allocatable :: f_on_heads(:,:)
 
-
       real (kind=8)     ::   r_time
       real (kind=8)     :: drop_cell_x,drop_cell_y 
 
@@ -198,6 +197,8 @@ real (kind=8) ,allocatable :: force_or(:,:)
       real (kind=8), allocatable :: force_d(:,:), force_r(:,:)
 !obs      real(kind=8), allocatable  :: random_2(:),random_3(:)
 
+
+      
 ! DPD weight funtions variables 
 
        real (kind=8) :: w_d, w_r
@@ -533,6 +534,10 @@ real (kind=8) ,allocatable :: force_or(:,:)
 
 #if SYSTEM == 4
 
+!force on the ends of the chain for SYSTEM == 4      
+real (kind=8), allocatable :: end_bead_force(:,:)
+real (kind=8), allocatable :: end_bead_force2(:,:)
+
 real (kind =8), allocatable ::  h_tot_fftw(:), Imean_fftw(:), cajitas_fftw(:)
 real (kind =8), allocatable ::  h_fftw(:), h2p_fftw(:)
 real (kind =8), allocatable ::  Amp_fftw(:),Im_fftw(:) 
@@ -564,7 +569,9 @@ real(kind = 8) :: hprom = 0., hprom2 = 0.
 integer :: n_bad_screen = 0
 integer :: n_safe_fftw
 logical :: flag_bad_screen
-
+#   if EXT_FORCE == 1
+    real(kind=8) :: k_elastic
+#   endif 
 #endif
 
 #if SYSTEM == 1 

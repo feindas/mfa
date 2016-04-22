@@ -11,7 +11,7 @@ select case (mode_bend)
 
 case(0)  ! Init  variables 
 print*,""
-print*," * Simulation with bending stiffnes"
+print*," * Simulation with bending stiffness"
 print*," * Bending elastic constant ",k_bend
 print*," * Equilubrium angle:",alpha_eq
 print*,""
@@ -21,6 +21,13 @@ case(1)
 
 case(2)
 !SYMETRY == 1 dont correcto for PBC in 3D
+
+!!!!         !  debug
+!!!!         print*,"r0",i_time,sum(r0(:,:))/dble(n_part)
+!!!!         print*,"v", i_time,sum(v(:,:))/dble(n_part)
+!!!!         print*,"a", i_time,sum(a(:,:))/dble(n_part)
+!!!!         print*,"f", i_time,sum(force(:,:))/dble(n_part)
+!!!!         ! end debug
 
 v_bend=0.  !Reset Bending Potential Energy
 Do l=0,n_chain-1 !n_chain , loop over chains
@@ -63,6 +70,7 @@ Do l=0,n_chain-1 !n_chain , loop over chains
         End do
         if(dir_next_2.lt.0.0000001) then !if alpha is small make force 0
             dir_next=dir_next*0
+           !print*, "ENTRO ACA1"
         else
         !Below I divide by |r_next|, because the bending force is proportional to 
         !k_bend*delta_alpha/|r_next|. This comes from V_vend=1/2*k_bend*delta_alpha_2
@@ -70,17 +78,37 @@ Do l=0,n_chain-1 !n_chain , loop over chains
         end if
         if(dir_prev_2.lt.0.0000001) then !if alpha is small make force 0
             dir_prev=dir_prev*0
+           !print*, "ENTRO ACA2"
         else
         !Below I divide by |r_prev|, because the bending force is proportional to 
         !k_bend*delta_alpha/|r_prev|. This comes from V_vend=1/2*k_bend*delta_alpha_2
             dir_prev=dir_prev/sqrt(dir_prev_2*r_prev_2)
         end if
-        delta_alpha=acos(cos_alpha)-alpha_eq
+        !debug
+        if(cos_alpha.ge.1.0) then
+            print*, "Error cos_alpha =",cos_alpha, " >= 0"
+            delta_alpha=0 
+        else
+            delta_alpha=acos(cos_alpha)-alpha_eq
+        end if
+        !debug
         F_mod=k_bend*delta_alpha
         v_bend=v_bend+.5*F_mod*delta_alpha
         Do j=1,3
             F_bend(j)=F_mod*dir_prev(j)
             F_bend(3+j)=F_mod*dir_next(j)
+
+            !debug
+            !if(F_bend(j).ne.F_bend(j)) then
+            !    print*,"Error found, monomer",i,", component",j
+            !    print*,"F_mod",F_mod,", dir_prev(j)",dir_prev(j),", delta_alpha", delta_alpha,", cos_alpha ",cos_alpha
+            !end if
+            !if(F_bend(3+j).ne.F_bend(3+j)) then
+            !    print*,"Error found, monomer",i,", component",j+3
+            !    print*,"F_mod",F_mod,", dir_next(j)",dir_next(j)
+            !end if
+            !debug
+
         End do
         Do j=1,3
             force(j,l*n_mon+i-1) = force(j,l*n_mon+i-1) + F_bend(j)
@@ -101,6 +129,7 @@ End do
  !!!!!!!!---------------DEBUGGING STUFF--------------------!!!!!!!!!!!!!!
         !  TEST TO CHECK IF THE ROUTINE IS CALCULATING FORCES AND ENERGY
         !  CORRECTLY. 
+        !print*,"f", i_time,sum(force(:,:))/dble(n_part)
         !print*, "positions"
         !print*, r0(1,1)-1.,r0(2,1),r0(3,1)
         !do i=1,n_mon

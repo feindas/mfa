@@ -20,6 +20,7 @@ use commons
 #       endif
 #endif
 
+
 ! Update accelerations with the new force values 
         do i_part = 1,n_mon_tot
             a(1,i_part) = force(1,i_part)*inv_mass(i_part)
@@ -37,12 +38,28 @@ use commons
 #   if SYSTEM == 4
 #       if CHAIN_BC == 2
 
+
+end_bead_force(:,1)=end_bead_force(:,1)+force(:,1)
+end_bead_force(:,2)=end_bead_force(:,2)+force(:,n_mon*n_chain)
+
+end_bead_force2(:,1)=end_bead_force2(:,1)+(force(:,1))**2
+end_bead_force2(:,2)=end_bead_force2(:,2)+(force(:,n_mon*n_chain))**2
+
+
+
         a(:,1) = 0.0
         a(:,n_mon*n_chain) = 0.0
 
         v(:,1) = 0.0
         v(:,n_mon*n_chain) = 0.0
+
 #       endif /* fix ends */
+
+#       ifdef RUN_2D
+! Fix to 0 velocities and accellerations in y direction 
+        v(2,:) = 0.0
+        a(2,:) = 0.0
+#       endif  
 
 ! elefante
 !         call fix_VCM()

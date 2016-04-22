@@ -1,7 +1,7 @@
              1 initial integer starting time
-           100 number of relaxation steps
-         20000 number of observation steps
-           500 # of steps between configuration storage
+            10 number of relaxation steps
+         10000 number of observation steps
+           100 # of steps between configuration storage
   0.200000E-03 time step increment
  
      0.80000 obsolete
@@ -11,7 +11,7 @@
    obsolete: flagg for constraining wall atoms
   0.100000E+01 spacing betw wall units in x direc
   0.100000E+01 spacing betw wall units in y direc
-  0.500000E+02 initial inter-wall spacing
+  0.900000E+02 initial inter-wall spacing
  
   0.100000E+01 mass
   0.100000E+01 Lennard Jones epsilon
@@ -44,9 +44,9 @@
   0.100000E+03 spring const. to wall equil. sites
   0.100000E+05 bending elastic constant
   0.000000E+00 bending equilibrium angle
-
+  0.100000000 Force constant of the  external elastic field
  
-      90446093 seed for random number generator
+      90446103 seed for random number generator
  
   0.300000E+02 effective spring constant within chain
   0.150000E+01 max. spacing between neighbored monomers
@@ -68,7 +68,7 @@
              0  number of fluid particles
              0  number of droplet/melt chains
              0  number of droplet/melt particles
-            80            50  number of wall cells in x-y direction
+            90            90  number of wall cells in x-y direction
  
              2  order of integrator
      obsolete: ad_flag  flag for adsorbed or endgrafted
@@ -79,17 +79,17 @@
  * Using Langevin thermostat and predictor correct
      (If integrator order = 2 ~ velocity verlet)  
     
-  80.00000  50.00000  50.00000                                 MD Box dimensions
-           0.00051                          initial monomer density 
-        4000.00000           0.00013              one wall area, grafting density     
+  90.00000  90.00000  90.00000                                 MD Box dimensions
+           0.00014                          initial monomer density 
+        8100.00000           0.00006              one wall area, grafting density     
  
-             52              3              3  binning boxes
-       1.538462      16.666667      16.666667  binning distances
+             59              3              3  binning boxes
+       1.525424      30.000000      30.000000  binning distances
  
        0     300  max. observed and maximum allowed fl. binnings
        0      16  max. observed and maximum allowed wa. binnings
  
-       2     256  max. observed and maximum allowed fl fl neighbors
+       3     256  max. observed and maximum allowed fl fl neighbors
        0      32  max. observed and maximum allowed fl wa neighbors
        0      32  max. observed and maximum allowed wa wa neighbors
  
@@ -97,18 +97,18 @@
    0.000000E+00   0.000000E+00 wall_wall kinetic e
    0.000000E+00   0.000000E+00 wall_wall total ene
  
-      18.0247       0.0360   total intramolecular energy per part.
+      19.9036     209.5710   total intramolecular energy per part.
        0.0000       0.0000       intramolecular energy droplet/melt per part
  
-   0.234828E+04   0.558306E+00 fl_fl potential
-   0.118428E+01   0.134927E+01 fl_fl kinetic e
-   0.233144E+04   0.462267E+01 fl_fl total ene
+   0.235205E+04   0.458668E+05 fl_fl potential
+   0.523180E+02   0.149636E+08 fl_fl kinetic e
+   0.238446E+04   0.154683E+08 fl_fl total ene
  
-   0.234828E+04   0.558306E+00 total potential
-   0.118428E+01   0.134927E+01 total kinetic e
-   0.234946E+04   0.179646E+01 total total ene
+   0.235205E+04   0.458668E+05 total potential
+   0.523180E+02   0.149636E+08 total kinetic e
+   0.240436E+04   0.165103E+08 total total ene
  
-   0.000000E+00   0.000000E+00 average spacing
+   0.900000E+02   0.000000E+00 average spacing
  
  
         0.00000        0.00000        0.00000                                       Mean Rg^2 for brushes

@@ -67,7 +67,7 @@
 #undef SHEARED      /* if defined, the shear protocols are applied, mfa_input is different!! */
                     /* NOTE: if it is not defined, wall velocities can anyway been used */
 
-#define  STORE 1 /* 0=Writes out folded coordinates,1=writes out unfolded (to follow diffusion)   */
+#define  STORE 0 /* 0=Writes out folded coordinates,1=writes out unfolded (to follow diffusion)   */
 #undef  PROFILES      /* this uses mide for calculating profiles in the MD run.       */
 #undef DIFF /*ifdef, the program will calculate diffusion coefficients. Not implemmented for all the systems  */
 #undef BRUSH_SEP /* ifdef separates the density profiles of top and bottom brushes */                    
@@ -82,7 +82,7 @@
 #undef FREE_HEADS        /* if defined, the heads of brushes are not fixed, epsilon between head and surface is 250, potential - attractive*/
 #define BIN_TYPE  0 /*0: uses binning.f90; single counting of each interaction; 1: uses my_binning.f90, from S. Plimpton and Cem Servantie versions; double counts each interaction.  */
 
-#define RINGS 0 /* 1 or 0 (exist or NOT_exist rings in system for SYSTEM == 4 ) for number of rings look for "n_ring" variable */
+#define RINGS 0 /* 1 or 0 (Have rings (1)  or NOT(0) in system for SYSTEM == 4 ) for number of rings look for "n_ring" variable */
 
 #define FIXCM 0 /* Used in SYSTEM == 4 :
                    0 - Free CM chain
@@ -90,3 +90,7 @@
                 */
 #define CHAIN_TYPE 0 /*0: random positions in Y and Z axis ; 1: harmonic positions in Z axis */
 #define CHAIN_BC 2 /* Boundary condition of the chains: 1 periodic boundary conditions; 2: Fix ends */
+#define RUN_2D /* If define coordinates y of all the particles are fixed   to Ly/2. This makes an effective 2D simulation
+                * in x-z plane
+                * */
+#define EXT_FORCE 1 /* External field force on each bead. 1: elastic axial force respect to the x axis in the center of the box */
